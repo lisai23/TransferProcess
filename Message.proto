@@ -1,16 +1,23 @@
 syntax = "proto3";
 package protocol;
 
-enum DataID
+enum DataType
 {
-    reqcheckdir = 0;
-    FileDataMsg = 1;
+    HeartBeat = 0;
+    reqcheckdir = 1;
+    FileDataMsg = 2;
+}
+
+message Heart
+{
+	bool TCPServerStatus = 1;
+	bool TCPClientStatus = 2;
 }
 
 message File
 {
-    string m_filename = 1;
-    int32 m_size = 2;
+    string filename = 1;
+    int32 size = 2;
     bytes relativepath = 3;
     int32 crcvalue = 4;
 }
@@ -22,8 +29,8 @@ message Directory
     bytes relativepath = 3;
 }
 
-message Data 
+message DataInfo
 {
-    int32 id = 1;
+    int32 msgid = 1;
     bytes info = 2;
 }

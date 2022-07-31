@@ -1,4 +1,28 @@
 #include "TCPClient.h"
+#include "Message.pb.h"
+#include "Common.h"
+#include <thread>
+
+void HeartBeat(SOCKET tcpserver)
+{
+    while (true)
+    {
+        Sleep(2000);
+        protocol::DataInfo datainfo;
+        datainfo.set_msgid(protocol::DataType::HeartBeat);
+        protocol::File file;
+        file.set_filename("HMI.png");
+        file.set_size(2048);
+        file.set_relativepath("/bin/cluster_HMI/НиЭМ");
+        file.set_crcvalue(369);
+        string info;
+        file.SerializeToString(&info);
+        datainfo.set_info(info.c_str());
+        string msg;
+        datainfo.SerializeToString(&msg);
+        send(tcpserver, msg.c_str(), strlen(msg.c_str()), 0);
+    }
+}
 
 TCPClient::TCPClient()
     :m_recveDate(new char[64*1024])
@@ -39,6 +63,8 @@ bool TCPClient::Connect()
     if (connect(m_sclient, (struct sockaddr *)&(m_serAddr), sizeof(m_serAddr)) != SOCKET_ERROR)
     {
         cout << "connect TCP server success" << endl;
+        thread heart(HeartBeat,m_sclient);
+        heart.detach();
         ret = true;
     }
     else

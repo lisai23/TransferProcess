@@ -46,49 +46,213 @@ struct TableStruct_Message_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Message_2eproto;
 namespace protocol {
-class Data;
-struct DataDefaultTypeInternal;
-extern DataDefaultTypeInternal _Data_default_instance_;
+class DataInfo;
+struct DataInfoDefaultTypeInternal;
+extern DataInfoDefaultTypeInternal _DataInfo_default_instance_;
 class Directory;
 struct DirectoryDefaultTypeInternal;
 extern DirectoryDefaultTypeInternal _Directory_default_instance_;
 class File;
 struct FileDefaultTypeInternal;
 extern FileDefaultTypeInternal _File_default_instance_;
+class Heart;
+struct HeartDefaultTypeInternal;
+extern HeartDefaultTypeInternal _Heart_default_instance_;
 }  // namespace protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> ::protocol::Data* Arena::CreateMaybeMessage<::protocol::Data>(Arena*);
+template<> ::protocol::DataInfo* Arena::CreateMaybeMessage<::protocol::DataInfo>(Arena*);
 template<> ::protocol::Directory* Arena::CreateMaybeMessage<::protocol::Directory>(Arena*);
 template<> ::protocol::File* Arena::CreateMaybeMessage<::protocol::File>(Arena*);
+template<> ::protocol::Heart* Arena::CreateMaybeMessage<::protocol::Heart>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace protocol {
 
-enum DataID : int {
-  reqcheckdir = 0,
-  FileDataMsg = 1,
-  DataID_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  DataID_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+enum DataType : int {
+  HeartBeat = 0,
+  reqcheckdir = 1,
+  FileDataMsg = 2,
+  DataType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  DataType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool DataID_IsValid(int value);
-constexpr DataID DataID_MIN = reqcheckdir;
-constexpr DataID DataID_MAX = FileDataMsg;
-constexpr int DataID_ARRAYSIZE = DataID_MAX + 1;
+bool DataType_IsValid(int value);
+constexpr DataType DataType_MIN = HeartBeat;
+constexpr DataType DataType_MAX = FileDataMsg;
+constexpr int DataType_ARRAYSIZE = DataType_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* DataID_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* DataType_descriptor();
 template<typename T>
-inline const std::string& DataID_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, DataID>::value ||
+inline const std::string& DataType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, DataType>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function DataID_Name.");
+    "Incorrect type passed to function DataType_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    DataID_descriptor(), enum_t_value);
+    DataType_descriptor(), enum_t_value);
 }
-inline bool DataID_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DataID* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<DataID>(
-    DataID_descriptor(), name, value);
+inline bool DataType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DataType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<DataType>(
+    DataType_descriptor(), name, value);
 }
 // ===================================================================
+
+class Heart final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.Heart) */ {
+ public:
+  inline Heart() : Heart(nullptr) {}
+  ~Heart() override;
+  explicit PROTOBUF_CONSTEXPR Heart(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Heart(const Heart& from);
+  Heart(Heart&& from) noexcept
+    : Heart() {
+    *this = ::std::move(from);
+  }
+
+  inline Heart& operator=(const Heart& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Heart& operator=(Heart&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Heart& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Heart* internal_default_instance() {
+    return reinterpret_cast<const Heart*>(
+               &_Heart_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(Heart& a, Heart& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Heart* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Heart* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Heart* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Heart>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Heart& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Heart& from) {
+    Heart::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Heart* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "protocol.Heart";
+  }
+  protected:
+  explicit Heart(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTCPServerStatusFieldNumber = 1,
+    kTCPClientStatusFieldNumber = 2,
+  };
+  // bool TCPServerStatus = 1;
+  void clear_tcpserverstatus();
+  bool tcpserverstatus() const;
+  void set_tcpserverstatus(bool value);
+  private:
+  bool _internal_tcpserverstatus() const;
+  void _internal_set_tcpserverstatus(bool value);
+  public:
+
+  // bool TCPClientStatus = 2;
+  void clear_tcpclientstatus();
+  bool tcpclientstatus() const;
+  void set_tcpclientstatus(bool value);
+  private:
+  bool _internal_tcpclientstatus() const;
+  void _internal_set_tcpclientstatus(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:protocol.Heart)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool tcpserverstatus_;
+    bool tcpclientstatus_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
 
 class File final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.File) */ {
@@ -138,7 +302,7 @@ class File final :
                &_File_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(File& a, File& b) {
     a.Swap(&b);
@@ -211,23 +375,23 @@ class File final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMFilenameFieldNumber = 1,
+    kFilenameFieldNumber = 1,
     kRelativepathFieldNumber = 3,
-    kMSizeFieldNumber = 2,
+    kSizeFieldNumber = 2,
     kCrcvalueFieldNumber = 4,
   };
-  // string m_filename = 1;
-  void clear_m_filename();
-  const std::string& m_filename() const;
+  // string filename = 1;
+  void clear_filename();
+  const std::string& filename() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_m_filename(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_m_filename();
-  PROTOBUF_NODISCARD std::string* release_m_filename();
-  void set_allocated_m_filename(std::string* m_filename);
+  void set_filename(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_filename();
+  PROTOBUF_NODISCARD std::string* release_filename();
+  void set_allocated_filename(std::string* filename);
   private:
-  const std::string& _internal_m_filename() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_m_filename(const std::string& value);
-  std::string* _internal_mutable_m_filename();
+  const std::string& _internal_filename() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_filename(const std::string& value);
+  std::string* _internal_mutable_filename();
   public:
 
   // bytes relativepath = 3;
@@ -244,13 +408,13 @@ class File final :
   std::string* _internal_mutable_relativepath();
   public:
 
-  // int32 m_size = 2;
-  void clear_m_size();
-  int32_t m_size() const;
-  void set_m_size(int32_t value);
+  // int32 size = 2;
+  void clear_size();
+  int32_t size() const;
+  void set_size(int32_t value);
   private:
-  int32_t _internal_m_size() const;
-  void _internal_set_m_size(int32_t value);
+  int32_t _internal_size() const;
+  void _internal_set_size(int32_t value);
   public:
 
   // int32 crcvalue = 4;
@@ -270,9 +434,9 @@ class File final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr m_filename_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filename_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr relativepath_;
-    int32_t m_size_;
+    int32_t size_;
     int32_t crcvalue_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -329,7 +493,7 @@ class Directory final :
                &_Directory_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(Directory& a, Directory& b) {
     a.Swap(&b);
@@ -474,24 +638,24 @@ class Directory final :
 };
 // -------------------------------------------------------------------
 
-class Data final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.Data) */ {
+class DataInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protocol.DataInfo) */ {
  public:
-  inline Data() : Data(nullptr) {}
-  ~Data() override;
-  explicit PROTOBUF_CONSTEXPR Data(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline DataInfo() : DataInfo(nullptr) {}
+  ~DataInfo() override;
+  explicit PROTOBUF_CONSTEXPR DataInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Data(const Data& from);
-  Data(Data&& from) noexcept
-    : Data() {
+  DataInfo(const DataInfo& from);
+  DataInfo(DataInfo&& from) noexcept
+    : DataInfo() {
     *this = ::std::move(from);
   }
 
-  inline Data& operator=(const Data& from) {
+  inline DataInfo& operator=(const DataInfo& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Data& operator=(Data&& from) noexcept {
+  inline DataInfo& operator=(DataInfo&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -514,20 +678,20 @@ class Data final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const Data& default_instance() {
+  static const DataInfo& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Data* internal_default_instance() {
-    return reinterpret_cast<const Data*>(
-               &_Data_default_instance_);
+  static inline const DataInfo* internal_default_instance() {
+    return reinterpret_cast<const DataInfo*>(
+               &_DataInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
-  friend void swap(Data& a, Data& b) {
+  friend void swap(DataInfo& a, DataInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(Data* other) {
+  inline void Swap(DataInfo* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -540,7 +704,7 @@ class Data final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Data* other) {
+  void UnsafeArenaSwap(DataInfo* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -548,14 +712,14 @@ class Data final :
 
   // implements Message ----------------------------------------------
 
-  Data* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<Data>(arena);
+  DataInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DataInfo>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Data& from);
+  void CopyFrom(const DataInfo& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const Data& from) {
-    Data::MergeImpl(*this, from);
+  void MergeFrom( const DataInfo& from) {
+    DataInfo::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -573,15 +737,15 @@ class Data final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Data* other);
+  void InternalSwap(DataInfo* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "protocol.Data";
+    return "protocol.DataInfo";
   }
   protected:
-  explicit Data(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit DataInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -596,7 +760,7 @@ class Data final :
 
   enum : int {
     kInfoFieldNumber = 2,
-    kIdFieldNumber = 1,
+    kMsgidFieldNumber = 1,
   };
   // bytes info = 2;
   void clear_info();
@@ -612,16 +776,16 @@ class Data final :
   std::string* _internal_mutable_info();
   public:
 
-  // int32 id = 1;
-  void clear_id();
-  int32_t id() const;
-  void set_id(int32_t value);
+  // int32 msgid = 1;
+  void clear_msgid();
+  int32_t msgid() const;
+  void set_msgid(int32_t value);
   private:
-  int32_t _internal_id() const;
-  void _internal_set_id(int32_t value);
+  int32_t _internal_msgid() const;
+  void _internal_set_msgid(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:protocol.Data)
+  // @@protoc_insertion_point(class_scope:protocol.DataInfo)
  private:
   class _Internal;
 
@@ -630,7 +794,7 @@ class Data final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr info_;
-    int32_t id_;
+    int32_t msgid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -645,76 +809,120 @@ class Data final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// Heart
+
+// bool TCPServerStatus = 1;
+inline void Heart::clear_tcpserverstatus() {
+  _impl_.tcpserverstatus_ = false;
+}
+inline bool Heart::_internal_tcpserverstatus() const {
+  return _impl_.tcpserverstatus_;
+}
+inline bool Heart::tcpserverstatus() const {
+  // @@protoc_insertion_point(field_get:protocol.Heart.TCPServerStatus)
+  return _internal_tcpserverstatus();
+}
+inline void Heart::_internal_set_tcpserverstatus(bool value) {
+  
+  _impl_.tcpserverstatus_ = value;
+}
+inline void Heart::set_tcpserverstatus(bool value) {
+  _internal_set_tcpserverstatus(value);
+  // @@protoc_insertion_point(field_set:protocol.Heart.TCPServerStatus)
+}
+
+// bool TCPClientStatus = 2;
+inline void Heart::clear_tcpclientstatus() {
+  _impl_.tcpclientstatus_ = false;
+}
+inline bool Heart::_internal_tcpclientstatus() const {
+  return _impl_.tcpclientstatus_;
+}
+inline bool Heart::tcpclientstatus() const {
+  // @@protoc_insertion_point(field_get:protocol.Heart.TCPClientStatus)
+  return _internal_tcpclientstatus();
+}
+inline void Heart::_internal_set_tcpclientstatus(bool value) {
+  
+  _impl_.tcpclientstatus_ = value;
+}
+inline void Heart::set_tcpclientstatus(bool value) {
+  _internal_set_tcpclientstatus(value);
+  // @@protoc_insertion_point(field_set:protocol.Heart.TCPClientStatus)
+}
+
+// -------------------------------------------------------------------
+
 // File
 
-// string m_filename = 1;
-inline void File::clear_m_filename() {
-  _impl_.m_filename_.ClearToEmpty();
+// string filename = 1;
+inline void File::clear_filename() {
+  _impl_.filename_.ClearToEmpty();
 }
-inline const std::string& File::m_filename() const {
-  // @@protoc_insertion_point(field_get:protocol.File.m_filename)
-  return _internal_m_filename();
+inline const std::string& File::filename() const {
+  // @@protoc_insertion_point(field_get:protocol.File.filename)
+  return _internal_filename();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void File::set_m_filename(ArgT0&& arg0, ArgT... args) {
+void File::set_filename(ArgT0&& arg0, ArgT... args) {
  
- _impl_.m_filename_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:protocol.File.m_filename)
+ _impl_.filename_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:protocol.File.filename)
 }
-inline std::string* File::mutable_m_filename() {
-  std::string* _s = _internal_mutable_m_filename();
-  // @@protoc_insertion_point(field_mutable:protocol.File.m_filename)
+inline std::string* File::mutable_filename() {
+  std::string* _s = _internal_mutable_filename();
+  // @@protoc_insertion_point(field_mutable:protocol.File.filename)
   return _s;
 }
-inline const std::string& File::_internal_m_filename() const {
-  return _impl_.m_filename_.Get();
+inline const std::string& File::_internal_filename() const {
+  return _impl_.filename_.Get();
 }
-inline void File::_internal_set_m_filename(const std::string& value) {
+inline void File::_internal_set_filename(const std::string& value) {
   
-  _impl_.m_filename_.Set(value, GetArenaForAllocation());
+  _impl_.filename_.Set(value, GetArenaForAllocation());
 }
-inline std::string* File::_internal_mutable_m_filename() {
+inline std::string* File::_internal_mutable_filename() {
   
-  return _impl_.m_filename_.Mutable(GetArenaForAllocation());
+  return _impl_.filename_.Mutable(GetArenaForAllocation());
 }
-inline std::string* File::release_m_filename() {
-  // @@protoc_insertion_point(field_release:protocol.File.m_filename)
-  return _impl_.m_filename_.Release();
+inline std::string* File::release_filename() {
+  // @@protoc_insertion_point(field_release:protocol.File.filename)
+  return _impl_.filename_.Release();
 }
-inline void File::set_allocated_m_filename(std::string* m_filename) {
-  if (m_filename != nullptr) {
+inline void File::set_allocated_filename(std::string* filename) {
+  if (filename != nullptr) {
     
   } else {
     
   }
-  _impl_.m_filename_.SetAllocated(m_filename, GetArenaForAllocation());
+  _impl_.filename_.SetAllocated(filename, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.m_filename_.IsDefault()) {
-    _impl_.m_filename_.Set("", GetArenaForAllocation());
+  if (_impl_.filename_.IsDefault()) {
+    _impl_.filename_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:protocol.File.m_filename)
+  // @@protoc_insertion_point(field_set_allocated:protocol.File.filename)
 }
 
-// int32 m_size = 2;
-inline void File::clear_m_size() {
-  _impl_.m_size_ = 0;
+// int32 size = 2;
+inline void File::clear_size() {
+  _impl_.size_ = 0;
 }
-inline int32_t File::_internal_m_size() const {
-  return _impl_.m_size_;
+inline int32_t File::_internal_size() const {
+  return _impl_.size_;
 }
-inline int32_t File::m_size() const {
-  // @@protoc_insertion_point(field_get:protocol.File.m_size)
-  return _internal_m_size();
+inline int32_t File::size() const {
+  // @@protoc_insertion_point(field_get:protocol.File.size)
+  return _internal_size();
 }
-inline void File::_internal_set_m_size(int32_t value) {
+inline void File::_internal_set_size(int32_t value) {
   
-  _impl_.m_size_ = value;
+  _impl_.size_ = value;
 }
-inline void File::set_m_size(int32_t value) {
-  _internal_set_m_size(value);
-  // @@protoc_insertion_point(field_set:protocol.File.m_size)
+inline void File::set_size(int32_t value) {
+  _internal_set_size(value);
+  // @@protoc_insertion_point(field_set:protocol.File.size)
 }
 
 // bytes relativepath = 3;
@@ -923,64 +1131,64 @@ inline void Directory::set_allocated_relativepath(std::string* relativepath) {
 
 // -------------------------------------------------------------------
 
-// Data
+// DataInfo
 
-// int32 id = 1;
-inline void Data::clear_id() {
-  _impl_.id_ = 0;
+// int32 msgid = 1;
+inline void DataInfo::clear_msgid() {
+  _impl_.msgid_ = 0;
 }
-inline int32_t Data::_internal_id() const {
-  return _impl_.id_;
+inline int32_t DataInfo::_internal_msgid() const {
+  return _impl_.msgid_;
 }
-inline int32_t Data::id() const {
-  // @@protoc_insertion_point(field_get:protocol.Data.id)
-  return _internal_id();
+inline int32_t DataInfo::msgid() const {
+  // @@protoc_insertion_point(field_get:protocol.DataInfo.msgid)
+  return _internal_msgid();
 }
-inline void Data::_internal_set_id(int32_t value) {
+inline void DataInfo::_internal_set_msgid(int32_t value) {
   
-  _impl_.id_ = value;
+  _impl_.msgid_ = value;
 }
-inline void Data::set_id(int32_t value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:protocol.Data.id)
+inline void DataInfo::set_msgid(int32_t value) {
+  _internal_set_msgid(value);
+  // @@protoc_insertion_point(field_set:protocol.DataInfo.msgid)
 }
 
 // bytes info = 2;
-inline void Data::clear_info() {
+inline void DataInfo::clear_info() {
   _impl_.info_.ClearToEmpty();
 }
-inline const std::string& Data::info() const {
-  // @@protoc_insertion_point(field_get:protocol.Data.info)
+inline const std::string& DataInfo::info() const {
+  // @@protoc_insertion_point(field_get:protocol.DataInfo.info)
   return _internal_info();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Data::set_info(ArgT0&& arg0, ArgT... args) {
+void DataInfo::set_info(ArgT0&& arg0, ArgT... args) {
  
  _impl_.info_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:protocol.Data.info)
+  // @@protoc_insertion_point(field_set:protocol.DataInfo.info)
 }
-inline std::string* Data::mutable_info() {
+inline std::string* DataInfo::mutable_info() {
   std::string* _s = _internal_mutable_info();
-  // @@protoc_insertion_point(field_mutable:protocol.Data.info)
+  // @@protoc_insertion_point(field_mutable:protocol.DataInfo.info)
   return _s;
 }
-inline const std::string& Data::_internal_info() const {
+inline const std::string& DataInfo::_internal_info() const {
   return _impl_.info_.Get();
 }
-inline void Data::_internal_set_info(const std::string& value) {
+inline void DataInfo::_internal_set_info(const std::string& value) {
   
   _impl_.info_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Data::_internal_mutable_info() {
+inline std::string* DataInfo::_internal_mutable_info() {
   
   return _impl_.info_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Data::release_info() {
-  // @@protoc_insertion_point(field_release:protocol.Data.info)
+inline std::string* DataInfo::release_info() {
+  // @@protoc_insertion_point(field_release:protocol.DataInfo.info)
   return _impl_.info_.Release();
 }
-inline void Data::set_allocated_info(std::string* info) {
+inline void DataInfo::set_allocated_info(std::string* info) {
   if (info != nullptr) {
     
   } else {
@@ -992,12 +1200,14 @@ inline void Data::set_allocated_info(std::string* info) {
     _impl_.info_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:protocol.Data.info)
+  // @@protoc_insertion_point(field_set_allocated:protocol.DataInfo.info)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -1009,10 +1219,10 @@ inline void Data::set_allocated_info(std::string* info) {
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::protocol::DataID> : ::std::true_type {};
+template <> struct is_proto_enum< ::protocol::DataType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::protocol::DataID>() {
-  return ::protocol::DataID_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::protocol::DataType>() {
+  return ::protocol::DataType_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

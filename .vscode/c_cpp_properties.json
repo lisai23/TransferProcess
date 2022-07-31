@@ -4,10 +4,11 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "d:/mingw/bin/../lib/gcc/mingw32/9.2.0/include",
-                "d:/mingw/bin/../lib/gcc/mingw32/9.2.0/../../../../include",
+                "d:/mingw/lib/gcc/x86_64-w64-mingw32/10.1.0/include",
+                "d:/mingw/include",
+                //"d:/mingw/x86_64-w64-mingw32/include",
                 "d:/protobuf/include",
-                "d:/mingw/bin/../lib/gcc/mingw32/9.2.0/include-fixed"
+                "d:/mingw/lib/gcc/x86_64-w64-mingw32/10.1.0/include-fixed"
             ],
             "defines": [
                 "_DEBUG",

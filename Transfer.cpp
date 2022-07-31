@@ -1,6 +1,6 @@
 #include "Transfer.h"
 #include <memory.h>
-//#include<pthread.h>
+#include<pthread.h>
 
 pthread_mutex_t g_mutex;
 
@@ -29,6 +29,30 @@ void ServerManager(TCPServer *server)
     pthread_mutex_unlock(&g_mutex);
 }
 
+void ClientManager(TCPClient *client)
+{
+    cout << "clientmanager start" << endl;
+    while(true)
+    {
+        pthread_mutex_lock(&g_mutex);
+        char *msg = client->recvmsg();
+        if(nullptr != msg)
+        {
+            protocol::DataInfo datainfo;
+            string data(msg);
+            if(datainfo.ParseFromString(data))
+            {
+                if(datainfo.msgid() == protocol::DataType::HeartBeat)
+                {
+                    cout << datainfo.info().c_str() << endl;
+                }
+            }
+        }
+        pthread_mutex_unlock(&g_mutex);
+    }
+    cout << "clientmanager end" << endl;
+}
+
 Transfer::Transfer()
     :m_connect(false)
     ,m_client(new TCPClient)
@@ -53,23 +77,27 @@ void Transfer::update()
 
 void Transfer::Connect()
 {
+    pthread_mutex_lock(&g_mutex);
     if(m_connect)
     {
         return;
     }
-    if(NULL != m_client)
+    if(NULL != m_client && !m_connect)
     {
         m_connect = m_client->Connect();
+        if(m_connect)
+        {
+            thread rec(ClientManager,m_client);
+            rec.detach();
+        }
     }
 
-     if(NULL != m_client && m_client->connectTimes() >= 0)
+     if(!m_connect && NULL != m_client && m_client->connectTimes() >= 5)
      {
         delete m_client;
         m_client = NULL;
         m_thread = new thread(ServerManager,m_server); 
         m_thread->detach();
-
-        m_connect = true;
-
      }
+     pthread_mutex_unlock(&g_mutex);
 }

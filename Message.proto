@@ -1,0 +1,29 @@
+syntax = "proto3";
+package protocol;
+
+enum DataID
+{
+    reqcheckdir = 0;
+    FileDataMsg = 1;
+}
+
+message File
+{
+    string m_filename = 1;
+    int32 m_size = 2;
+    bytes relativepath = 3;
+    int32 crcvalue = 4;
+}
+
+message Directory
+{
+    repeated Directory DirList = 1;
+    repeated File FileList = 2;
+    bytes relativepath = 3;
+}
+
+message Data 
+{
+    int32 id = 1;
+    bytes info = 2;
+}
